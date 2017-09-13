@@ -1,0 +1,89 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  config.vm.box = 'digital_ocean'
+  config.vm.box_url = "https://github.com/devopsgroup-io/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+  config.ssh.private_key_path = '~/.ssh/id_rsa'
+  #
+  config.vm.define "webserver", primary: true do |server|
+
+    server.vm.provider :digital_ocean do |provider|
+      provider.ssh_key_name = ENV["SSH_KEY_NAME"]
+      provider.token = ENV["DIGITAL_OCEAN_TOKEN"]
+      provider.image = 'ubuntu-16-04-x64'
+      provider.region = 'fra1'
+      provider.size = '512mb'
+      provider.privatenetworking = true
+    end
+
+    server.vm.hostname = "webserver"
+    server.vm.provision "shell", inline: <<-SHELL
+      echo "Installing Go Lang"
+      wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+      sudo tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
+      rm go1.8.3.linux-amd64.tar.gz
+
+      mkdir -p $HOME/go/src/github.com/HelgeCPH/mywebserver/
+      mkdir -p $HOME/go/bin
+      mkdir -p $HOME/go/pkg
+
+      echo "export PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
+      echo "export GOPATH=/go_projects" >> $HOME/.profile
+
+      export PATH=$PATH:/usr/local/go/bin
+      export GOPATH=/go_projects
+
+      go get gopkg.in/mgo.v2
+
+      cp /vagrant/main.go $HOME/go/src/github.com/HelgeCPH/mywebserver/telbookserver.go
+      
+      go build $HOME/go/src/github.com/HelgeCPH/mywebserver/telbookserver.go
+      ./telbookserver &
+    echo "==================================================================="
+    echo "=                             DONE                                ="
+    echo "==================================================================="
+    echo "To log onto the VM:"
+    echo "$ vagrant ssh"
+    echo "To start the webserver:"
+    echo "$ ./telbookserver > /tmp/out.log 2>&1 &"
+    echo "Connect in the browser to:"
+    echo "$ http://192.168.20.2:8080"
+    SHELL
+  end
+
+  config.vm.define "dbserver", primary: false do |server|
+    server.vm.provider :digital_ocean do |provider|
+      provider.ssh_key_name = ENV["SSH_KEY_NAME"]
+      provider.token = ENV["DIGITAL_OCEAN_TOKEN"]
+      provider.image = 'ubuntu-16-04-x64'
+      provider.region = 'fra1'
+      provider.size = '512mb'
+      provider.privatenetworking = true
+    end
+
+    server.vm.hostname = "dbserver"
+    server.vm.provision "shell", inline: <<-SHELL
+      echo "Installing MongoDB"
+      sudo apt-get -y install mongodb-server
+      sudo mkdir -p /data/db
+    
+      mongo /vagrant/db_setup.js
+
+      sudo sed -i '/bind_ip = / s/127.0.0.1/0.0.0.0/' /etc/mongodb.conf
+      sudo service mongodb restart
+    SHELL
+  end
+
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    sudo apt-get update
+
+    # sudo chmod a+w /etc/environment
+    # sudo echo "LC_ALL=\"en_US.UTF-8\"" >> /etc/environment
+    # sudo locale-gen UTF-8
+  SHELL
+end
