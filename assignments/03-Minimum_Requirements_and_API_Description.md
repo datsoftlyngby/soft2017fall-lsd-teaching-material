@@ -96,13 +96,13 @@ You can run this program from your VM with the following command:
 python student_tester.py http://<your_host>[:<your_port>]
 ```
 
-That is, a concrete call could look like:
+That is, a concrete call to run the tester program could look like (in case system runs on this machine on port `8080`):
 
 ```bash
 python student_tester.py http://localhost:8080
 ```
 
-If your system runs on this machine on port `8080`. If your system can digest these messages, then your system's should be prepared for the simulator.
+If your system can digest the sent messages, then it should be prepared for the simulator.
 
 
 ### Users? Passwords?
