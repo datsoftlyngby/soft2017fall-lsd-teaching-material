@@ -1,0 +1,21 @@
+version: '3'
+services:
+  dbserver:
+    image: helgecph/dbserver
+    volumes:
+      - ~/Documents/Lectures/soft2017fall/LSD/solutions/03-Containers\ and\ VMs/datadb/:/data/db
+    ports:
+      - "27017:27017"
+
+  webserver:
+    image: helgecph/webserver
+    ports:
+      - "8080:8080"
+    links:
+        - dbserver
+
+  clidownload:
+    image: appropriate/curl
+    links:
+      - webserver
+    entrypoint: sh -c  "sleep 5 && curl http://webserver:8080"
