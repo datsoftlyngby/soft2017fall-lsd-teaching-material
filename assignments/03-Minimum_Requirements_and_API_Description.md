@@ -22,7 +22,8 @@ As said, your REST API has to be able to react on a POST request to `http://<you
 {"username": "<string>", 
  "post_type": "<string>", 
  "pwd_hash": "<string>", 
- "post_title": "<string>", 
+ "post_title": "<string>",
+ "post_url": "<string>", 
  "post_parent": <int>, 
  "hanesst_id": <int>, 
  "post_text": "<string>"}
@@ -37,6 +38,7 @@ type Item struct {
     PostType   string `json:"post_type"`
     PostTitle  string `json:"post_title"`
     PostText   string `json:"post_text"`
+    URL        string `json:"post_url"`
     PostParent int    `json:"post_parent"`
     HanesstID  int    `json:"hanesst_id"`
 }
@@ -47,44 +49,48 @@ The strings for `post_type` can be `story`, `comment`, `poll`, or `pollopt`.
 In the following, you can see four examples of the JSON data that will be sent to your systems `http://<your_host>:<your_port>/post` route from the simulator.
 
 ```json
-{"username": "pg", 
- "post_type": "story", 
- "pwd_hash": "E0Ba6XfUui", 
- "post_title": "Y Combinator", 
- "post_parent": -1, 
+{"post_title": "Y Combinator", 
+ "post_text": "", 
  "hanesst_id": 1, 
- "post_text": ""}
+ "post_type": "story", 
+ "post_parent": -1, 
+ "username": "pg", 
+ "pwd_hash": "Y89KIJ3frM", 
+ "post_url": "http://ycombinator.com"}
 ```
 
 ```json
-{"username": "phyllis", 
- "post_type": "story", 
- "pwd_hash": "aioCQdsy3E", 
- "post_title": "A Student's Guide to Startups", 
- "post_parent": -1, 
+{"post_title": "A Student's Guide to Startups", 
+ "post_text": "", 
  "hanesst_id": 2, 
- "post_text": ""}
+ "post_type": "story", 
+ "post_parent": -1, 
+ "username": "phyllis", 
+ "pwd_hash": "fyQgkcLMD1", 
+ "post_url": "http://www.paulgraham.com/mit.html"}
 ```
 
 ```json
-{"username": "phyllis", 
- "post_type": "story", 
- "pwd_hash": "aioCQdsy3E", 
- "post_title": "Woz Interview: the early days of Apple", 
- "post_parent": -1, 
+{"post_title": "Woz Interview: the early days of Apple", 
+ "post_text": "", 
  "hanesst_id": 3, 
- "post_text": ""}
+ "post_type": "story", 
+ "post_parent": -1, 
+ "username": "phyllis", 
+ "pwd_hash": "fyQgkcLMD1", 
+ "post_url": "http://www.foundersatwork.com/stevewozniak.html"}
 ```
 
 ```json
-{"username": "onebeerdave", 
+{"post_title": "NYC Developer Dilemma", 
+ "post_text": "", 
+ "hanesst_id": 4, 
  "post_type": "story", 
- "pwd_hash": "3RBszFhikO", 
- "post_title": "NYC Developer Dilemma", 
  "post_parent": -1, 
- "hanesst_id": 4, "post_text": ""}
+ "username": "onebeerdave", 
+ "pwd_hash": "fwozXFe7g0", 
+ "post_url": "http://avc.blogs.com/a_vc/2006/10/the_nyc_develop.html"}
 ```
-
 
 ### More Examples and Testing your REST API
 
@@ -119,7 +125,7 @@ An HTTP `GET` request to your system on the `http://<your_host>:<your_port>/late
 For example, if the latest post sent by the simulator, which is registered by your system is the post with JSON data:
 
 ```json
-{"username": "sergei", "post_type": "story", "pwd_hash": "1MHhed3L9i", "post_title": "An alternative to VC: &#34;Selling In&#34;", "post_parent": -1, "hanesst_id": 42, "post_text": ""}
+{"username": "sergei", "post_type": "story", "pwd_hash": "1MHhed3L9i", "post_title": "An alternative to VC: &#34;Selling In&#34;", "post_parent": -1, "hanesst_id": 42, "post_text": "", "post_url": "http://www.venturebeat.com/contributors/2006/10/10/an-alternative-to-vc-selling-in/"}
 ```
 
 then the `curl` call to your system should return `42`.
