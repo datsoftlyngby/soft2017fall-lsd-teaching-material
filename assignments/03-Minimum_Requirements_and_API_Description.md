@@ -131,7 +131,7 @@ For example, if the latest post sent by the simulator, which is registered by yo
 then the `curl` call to your system should return `42`.
 
 ```bash
-curl http://localhost:8080/latest
+curl http://<your_host>:<your_port>/latest
 42
 ```
 
@@ -150,7 +150,7 @@ Lets say, that you have at least three states, which your system should return:
 That is, in case your system is just running and digesting incoming user requests a call to it's `/status` route shall return `Alive`.
 
 ```bash
-curl http://localhost:8080/status
+curl http://<your_host>:<your_port>/status
 Alive
 ```
 
