@@ -4,6 +4,9 @@ notebooks/.ipynb_checkpoints/
 notebooks/geckodriver.log
 notebooks/__pycache__/
 
+# nodejs
+node_modules
+
 # ignore temporary Word, Excel, and PowerPoint files
 ~$*.doc*
 ~$*.xls*
