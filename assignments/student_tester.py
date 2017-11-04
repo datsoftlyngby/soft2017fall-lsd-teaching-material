@@ -1012,7 +1012,7 @@ if __name__ == '__main__':
 
     for post in posts:
         try:
-            headers = {'Connection': 'close'} 
+            headers = {'Connection': 'close', 'Content-Type': 'application/json'} 
             response = requests.post(receiver, data=json.dumps(post), 
                                      headers=headers, 
                                      timeout=0.1)
