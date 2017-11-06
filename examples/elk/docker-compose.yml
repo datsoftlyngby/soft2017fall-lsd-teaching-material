@@ -1,0 +1,16 @@
+version: "3.2"
+services:
+  elk:
+    image: sebp/elk
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5044:5044"
+      - "9700:9700"
+    volumes:
+      - type: volume
+        source: ./01-http-input.conf
+        target: /etc/logstash/conf.d/01-http-input.conf
+      - type: volume
+        source: ./30-output.conf
+        target: /etc/logstash/conf.d/30-output.conf
