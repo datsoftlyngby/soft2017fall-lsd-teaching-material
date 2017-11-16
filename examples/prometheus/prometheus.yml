@@ -24,3 +24,9 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:8080']
 
+  - job_name: 'docker-exporter'
+    dns_sd_configs:
+    - names:
+      - 'tasks.docker-exporter'
+      type: 'A'
+      port: 4999
