@@ -83,7 +83,7 @@ critical and honest.
 ## 3.2. Group work reflection & Lessons learned
 Give a short reflection on what were the three most important things you learned during the project. The lessons learned are with regards to both, what worked well and what worked not well. These reflections can cover anything from the sections above. That is, development process, architectural and design decisions, implementation, maintenance, etc. If you chose to use roles (project manager, architect, devops etc.) you should use those to reflect on whether they improved the process or not.
 
-Additionally, focuses on both your work as developers as well as operators. 
+Additionally, focus on both, your work as developers as well as operators. 
 
 
 
