@@ -19,7 +19,7 @@ is equal to 2400 characters (spaces included), so that would mean somewhere betw
 5 * 2400 and 10 * 2400 characters. You are welcome not to write the full 10 pages
 if you think the report covers the requirements.
 
-The report must be handed in no later than the **16th of December at 23:59:59**.
+The report must be handed in no later than the **16th of December at 23:59**.
 
 ## 1. Requirements, architecture, design and process
 This section describes the requirements of the project, the architecture that you have chosen, the design of the actual components and the process you undertook to build them in the end.
@@ -86,3 +86,10 @@ Give a short reflection on what were the three most important things you learned
 Additionally, focuses on both your work as developers as well as operators. 
 
 
+
+
+# Hand-in procedure
+
+  * You create the project report as a Markdown (.md) file in a Github repository.
+    - OBS You create a markdown document. No MS Word file, no PDF, no other format than .md
+  * At latest on 16.12. 23:59 your group will upload a link to the project report markdown document on Moodle.
