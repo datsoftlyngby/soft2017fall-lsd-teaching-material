@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3"
 services:
   elk:
     image: sebp/elk
@@ -8,11 +8,7 @@ services:
       - "5044:5044"
       - "9700:9700"
     volumes:
-      - type: volume
-        source: ./01-http-input.conf
-        target: /etc/logstash/conf.d/01-http-input.conf
-      - type: volume
-        source: ./30-output.conf
-        target: /etc/logstash/conf.d/30-output.conf
+      - ./01-http-input.conf:/etc/logstash/conf.d/01-http-input.conf
+      - ./30-output.conf:/etc/logstash/conf.d/30-output.conf
     environment:
       - ES_HEAP_SIZE=512m
